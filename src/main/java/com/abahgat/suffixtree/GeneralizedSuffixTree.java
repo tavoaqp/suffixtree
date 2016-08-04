@@ -153,6 +153,17 @@ public class GeneralizedSuffixTree {
     }
 
     /**
+     * Returns the approximate matches given a word and a maximum distance.
+     * Based on Ukkonen 'Approximate String-Matching over Suffix Trees'
+     */
+    public ResultInfo approxSearch(String word, int distance) {
+        Node currentNode=root;
+        Edge currentEdge;
+        
+       
+        
+    }
+    /**
      * Adds the specified <tt>index</tt> to the GST under the given <tt>key</tt>.
      *
      * Entries must be inserted so that their indexes are in non-decreasing order,
