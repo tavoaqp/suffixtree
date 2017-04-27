@@ -17,6 +17,13 @@ package com.abahgat.suffixtree;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Stack;
+import java.util.Map;
+import java.util.Comparator;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * A Generalized Suffix Tree, based on the Ukkonen's paper "On-line construction of suffix trees"
@@ -95,6 +102,35 @@ public class GeneralizedSuffixTree {
         return tmpNode.getData(results);
     }
 
+
+    class EdgeComparator implements java.util.Comparator<Edge> {
+
+        @Override
+        public int compare(Edge edge1, Edge edge2) {
+            return edge1.getLabel().compareTo(edge2.getLabel());
+        }
+        
+    }
+
+    public void depthSearch() {
+        Stack<Node> stack=new Stack<Node>();
+        stack.push(root);
+        while (!stack.empty()) {
+            Node curNode=stack.pop();
+            Map<Character,Edge> edges=curNode.getEdges();
+            if (edges.size()>0) {
+                SortedSet<Edge> sortEdges = new TreeSet<Edge>(new EdgeComparator());
+                sortEdges.addAll(edges.values());
+                for (Edge nextEdge:sortEdges) {
+                    System.out.println(nextEdge.getLabel());
+                    stack.push(nextEdge.getDest());
+                }
+            }
+            else {
+                System.out.println(curNode);
+            }
+        }
+    }
     /**
      * Searches for the given word within the GST and returns at most the given number of matches.
      *
@@ -152,17 +188,6 @@ public class GeneralizedSuffixTree {
         return null;
     }
 
-    /**
-     * Returns the approximate matches given a word and a maximum distance.
-     * Based on Ukkonen 'Approximate String-Matching over Suffix Trees'
-     */
-    public ResultInfo approxSearch(String word, int distance) {
-        Node currentNode=root;
-        Edge currentEdge;
-        
-       
-        
-    }
     /**
      * Adds the specified <tt>index</tt> to the GST under the given <tt>key</tt>.
      *

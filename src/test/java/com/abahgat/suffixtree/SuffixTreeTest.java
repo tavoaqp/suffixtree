@@ -52,6 +52,15 @@ public class SuffixTreeTest extends TestCase {
         assertEmpty(in.search("ookepr"));
     }
 
+    public void testDepthSearch(){
+        GeneralizedSuffixTree in = new GeneralizedSuffixTree();
+
+        String word = "cacacato";
+        in.put(word, 0);
+
+        in.depthSearch();
+    }
+
     public void testWeirdword() {
         GeneralizedSuffixTree in = new GeneralizedSuffixTree();
 
